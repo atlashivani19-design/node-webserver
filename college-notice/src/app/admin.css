@@ -1,0 +1,92 @@
+
+.admin-container {
+  max-width: 900px;
+  margin: 35px auto;
+  padding: 20px;
+  color: #17365d;
+  font-family: Arial, sans-serif;
+}
+
+h1 {
+  color: #164e9b;
+  text-align: center;
+}
+
+.admin-container > p {
+  text-align: center;
+  color: #64748b;
+}
+
+.admin-card {
+  background: white;
+  padding: 25px;
+  margin: 25px 0;
+  border-radius: 12px;
+  border: 1px solid #dbeafe;
+  box-shadow: 0 4px 15px #1e40af12;
+}
+
+.admin-card h2 {
+  color: #164e9b;
+}
+
+label {
+  display: block;
+  margin-top: 15px;
+  font-weight: bold;
+}
+
+input,
+select,
+textarea {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 12px;
+  margin-top: 7px;
+  border: 1px solid #cbd5e1;
+  border-radius: 7px;
+  font-size: 15px;
+}
+
+textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+button {
+  background: #1763c6;
+  color: white;
+  padding: 11px 18px;
+  margin-top: 18px;
+  border: none;
+  border-radius: 7px;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #104a96;
+}
+
+.notice-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  padding: 15px 0;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.delete-button {
+  background: #dc2626;
+}
+
+.delete-button:hover {
+  background: #b91c1c;
+}
+
+@media (max-width: 600px) {
+  .notice-item {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}

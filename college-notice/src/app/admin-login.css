@@ -1,0 +1,121 @@
+
+:host {
+  display: block;
+  width: 100%;
+}
+
+.login-page {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  background: transparent;
+  font-family: "Segoe UI", Arial, sans-serif;
+}
+
+.login-card {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 420px;
+  padding: 32px;
+  border: 1px solid #dce7f7;
+  border-radius: 18px;
+  background: #ffffff;
+  box-shadow: 0 14px 40px rgba(20, 58, 110, 0.10);
+}
+
+.login-card h1 {
+  margin: 0 0 8px;
+  color: #174b98;
+  text-align: center;
+  font-size: 30px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+}
+
+.login-subtitle {
+  margin: 0 0 25px;
+  color: #637895;
+  text-align: center;
+  font-size: 15px;
+}
+
+.login-card label {
+  display: block;
+  margin: 18px 0 7px;
+  color: #19375e;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.login-card input {
+  box-sizing: border-box;
+  display: block;
+  width: 100%;
+  min-height: 47px;
+  padding: 12px 14px;
+  border: 1px solid #cbd9ed;
+  border-radius: 9px;
+  outline: none;
+  background: #fbfdff;
+  color: #173451;
+  font-size: 14px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.login-card input:focus {
+  border-color: #3185ff;
+  box-shadow: 0 0 0 3px rgba(49, 133, 255, 0.12);
+}
+
+.login-card button {
+  display: block;
+  width: 100%;
+  min-height: 47px;
+  margin-top: 24px;
+  padding: 12px;
+  border: none;
+  border-radius: 9px;
+  background: linear-gradient(120deg, #3185ff, #1259e9);
+  color: #ffffff;
+  font-size: 14px;
+  font-weight: 750;
+  cursor: pointer;
+  transition: transform 0.2s, background 0.2s;
+}
+
+.login-card button:hover:not(:disabled) {
+  background: #104bd0;
+  transform: translateY(-1px);
+}
+
+.login-card button:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+.login-message {
+  margin: 16px 0 0;
+  text-align: center;
+  overflow-wrap: anywhere;
+  font-size: 14px;
+}
+
+.login-message.error {
+  color: #b91c1c;
+}
+
+.login-message.success {
+  color: #15803d;
+}
+
+@media (max-width: 480px) {
+  .login-card {
+    padding: 25px 20px;
+  }
+
+  .login-card h1 {
+    font-size: 26px;
+  }
+}

@@ -1,0 +1,411 @@
+
+:host {
+  display: block;
+  min-height: 100vh;
+  color: #183858;
+  background: #f3f7fc;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+button, input, select, textarea {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+/* Header */
+.site-header {
+  padding: 25px 3%;
+  color: white;
+  background: linear-gradient(120deg, #173b65, #285f94);
+}
+
+.header-content {
+  max-width: 1250px;
+  margin: 0 auto;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.brand-icon {
+  display: flex;
+  width: 54px;
+  height: 54px;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  border-radius: 12px;
+  color: #204f7c;
+  background: white;
+  font-size: 19px;
+  font-weight: 800;
+}
+
+.brand h1 {
+  margin: 0 0 8px;
+  color: white;
+  font-size: clamp(25px, 3vw, 36px);
+}
+
+.brand p {
+  margin: 0;
+  color: #e1edff;
+  line-height: 1.6;
+}
+
+/* Navigation */
+.main-nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 25px auto 0;
+}
+
+.main-nav button {
+  min-height: 48px;
+  padding: 12px 23px;
+  border: 1px solid rgba(255, 255, 255, .28);
+  border-radius: 10px;
+  color: white;
+  background: #2b639d;
+  font-weight: 700;
+  transition: .2s ease;
+}
+
+.main-nav button:hover {
+  color: #204f7c;
+  background: white;
+}
+
+.main-nav .logout-button {
+  color: #fff;
+  background: #b74747;
+}
+
+.main-nav .logout-button:hover {
+  color: #a12626;
+  background: white;
+}
+
+/* Main layout */
+main {
+  width: 100%;
+  max-width: 1250px;
+  margin: 0 auto;
+  padding: 40px 30px 55px;
+}
+
+section {
+  margin-bottom: 35px;
+}
+
+h2, h3 {
+  color: #204f7c;
+  line-height: 1.35;
+}
+
+h2 {
+  font-size: clamp(24px, 3vw, 31px);
+}
+
+p {
+  line-height: 1.75;
+}
+
+/* Hero */
+.hero {
+  padding: 48px 40px;
+  border: 1px solid #d2e4fa;
+  border-radius: 18px;
+  background: linear-gradient(120deg, #e0edff, #f5f9ff);
+}
+
+.eyebrow {
+  color: #3974ad;
+  font-size: 13px;
+  font-weight: 750;
+  letter-spacing: 1.2px;
+}
+
+.hero h2 {
+  margin: 18px 0;
+  color: #173d67;
+  font-size: clamp(32px, 4vw, 44px);
+}
+
+.hero-description {
+  max-width: 780px;
+  color: #526d8b;
+  font-size: 17px;
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 25px;
+}
+
+/* Buttons */
+.primary-button,
+.secondary-button,
+.back-button {
+  min-height: 45px;
+  padding: 12px 21px;
+  border-radius: 9px;
+  font-weight: 700;
+  transition: .2s ease;
+}
+
+.primary-button {
+  border: 1px solid #347bc4;
+  color: white;
+  background: #347bc4;
+}
+
+.primary-button:hover {
+  background: #205d9c;
+}
+
+.secondary-button,
+.back-button {
+  border: 1px solid #c5d9f0;
+  color: #245b91;
+  background: white;
+}
+
+.secondary-button:hover,
+.back-button:hover {
+  background: #e5f0ff;
+}
+
+/* Section headings */
+.section-heading {
+  margin-bottom: 22px;
+}
+
+.section-heading h2 {
+  margin: 10px 0;
+}
+
+.section-heading p {
+  color: #617b98;
+}
+
+/* Statistics */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 24px;
+  margin-top: 25px;
+}
+
+.stat-card {
+  min-height: 145px;
+  padding: 28px 30px;
+  border: 1px solid #d5e3f4;
+  border-radius: 16px;
+  background: white;
+  box-shadow: 0 8px 24px rgba(30, 70, 110, .06);
+}
+
+.stat-card h3 {
+  margin: 0 0 12px;
+  color: #245b91;
+  font-size: 32px;
+}
+
+.stat-card p {
+  margin: 0;
+  color: #617b98;
+  font-size: 17px;
+}
+
+/* Cards */
+.notice-grid, .quick-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 22px;
+  margin: 24px 0 30px;
+}
+
+.notice-card, .quick-card, .about-card {
+  padding: 25px;
+  border: 1px solid #d7e4f3;
+  border-radius: 15px;
+  background: white;
+  box-shadow: 0 6px 22px rgba(29, 70, 112, .05);
+}
+
+.notice-card h3, .quick-card h3 {
+  margin-top: 12px;
+}
+
+.notice-card p, .quick-card p, .about-card p {
+  color: #5b7089;
+  overflow-wrap: anywhere;
+}
+
+.notice-card small {
+  color: #71869f;
+}
+
+.category-label {
+  display: inline-block;
+  padding: 5px 10px;
+  border-radius: 20px;
+  color: #245b91;
+  background: #e5f0ff;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+/* Search and filters */
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 22px 0;
+}
+
+.filters input {
+  flex: 1;
+  min-width: 200px;
+}
+
+input, select, textarea {
+  max-width: 100%;
+  padding: 12px 14px;
+  border: 1px solid #cbd9e9;
+  border-radius: 9px;
+  color: #183858;
+  background: white;
+}
+
+input:focus, select:focus, textarea:focus {
+  border-color: #347bc4;
+  outline: 2px solid #d5e8ff;
+}
+
+/* Login and admin */
+.login-section {
+  padding: 20px 0;
+}
+
+.back-button {
+  margin-bottom: 20px;
+}
+
+.admin-section {
+  padding: 10px 0;
+}
+
+/* About */
+.about-card {
+  line-height: 1.8;
+}
+
+.about-card h3 {
+  margin-top: 25px;
+}
+
+.about-card li {
+  margin-bottom: 8px;
+}
+
+/* Messages */
+.empty-state {
+  padding: 25px;
+  border: 1px dashed #bfd3ea;
+  border-radius: 12px;
+  color: #617b98;
+  background: #fff;
+  text-align: center;
+}
+
+.error-message {
+  padding: 12px;
+  border: 1px solid #f0caca;
+  border-radius: 8px;
+  color: #a52a2a;
+  background: #fff0f0;
+}
+
+/* Footer */
+.site-footer {
+  padding: 25px 20px;
+  color: #dce9f8;
+  background: #173b65;
+  text-align: center;
+}
+
+.site-footer p {
+  margin: 5px 0;
+}
+
+/* Responsive */
+@media (max-width: 800px) {
+  main {
+    padding: 25px 20px 40px;
+  }
+
+  .stats-grid, .notice-grid, .quick-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 15px;
+  }
+
+  .hero {
+    padding: 32px 24px;
+  }
+}
+
+@media (max-width: 520px) {
+  .site-header {
+    padding: 22px 15px;
+  }
+
+  .brand {
+    align-items: flex-start;
+  }
+
+  .brand h1 {
+    font-size: 24px;
+  }
+
+  .brand-icon {
+    width: 43px;
+    height: 43px;
+  }
+
+  .main-nav {
+    gap: 8px;
+  }
+
+  .main-nav button {
+    padding: 11px 13px;
+  }
+
+  main {
+    padding: 20px 14px 30px;
+  }
+
+  .stats-grid, .notice-grid, .quick-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hero {
+    padding: 25px 18px;
+  }
+}

@@ -1,0 +1,62 @@
+
+<div class="admin-container">
+  <h1>College Notice Admin Portal</h1>
+  <p>Manage college notices easily.</p>
+
+  <div class="admin-card">
+    <h2>Add New Notice</h2>
+
+    <form (ngSubmit)="addNotice()">
+      <label>Notice Title</label>
+      <input
+        type="text"
+        name="title"
+        [(ngModel)]="title"
+        placeholder="Enter notice title"
+        required
+      />
+
+      <label>Category</label>
+      <select name="category" [(ngModel)]="category">
+        <option>Important Announcement</option>
+        <option>Examination</option>
+        <option>Events</option>
+        <option>Holiday</option>
+      </select>
+
+      <label>Notice Details</label>
+      <textarea
+        name="details"
+        [(ngModel)]="details"
+        placeholder="Enter notice details"
+        required
+      ></textarea>
+
+      <button type="submit">Add Notice</button>
+    </form>
+  </div>
+
+  <div class="admin-card">
+    <h2>Manage Notices</h2>
+
+    <p *ngIf="notices.length === 0">
+      No notices added yet.
+    </p>
+
+    <div class="notice-item" *ngFor="let notice of notices">
+      <div>
+        <h3>{{ notice.title }}</h3>
+        <p>{{ notice.category }}</p>
+        <p>{{ notice.details }}</p>
+        <small>{{ notice.date }}</small>
+      </div>
+
+      <button
+        class="delete-button"
+        (click)="deleteNotice(notice.id)"
+      >
+        Delete
+      </button>
+    </div>
+  </div>
+</div>

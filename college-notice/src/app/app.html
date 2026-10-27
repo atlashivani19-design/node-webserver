@@ -1,0 +1,413 @@
+
+<!-- Public Header -->
+<header class="site-header">
+  <div class="header-content">
+    <div class="brand">
+      <div class="brand-icon">CN</div>
+      <div>
+        <h1>College Notice Service</h1>
+        <p>Your campus updates, all in one place</p>
+      </div>
+    </div>
+  </div>
+
+  <nav class="main-nav" aria-label="Main navigation">
+    @if (!isLoggedIn) {
+      <button type="button" (click)="showHome()">Home</button>
+      <button type="button" (click)="showNotices()">Notices</button>
+      <button type="button" (click)="showEvents()">Events</button>
+      <button type="button" (click)="showAbout()">About</button>
+      <button type="button" (click)="openStudentLogin()">Student Login</button>
+      <button type="button" (click)="openAdminLogin()">Admin Login</button>
+    } @else if (userRole === 'student') {
+      <span class="nav-welcome">Student Dashboard</span>
+      <button type="button" (click)="showNotices()">Notices</button>
+      <button type="button" (click)="showEvents()">Events</button>
+      <button type="button" class="logout-button" (click)="logout()">Logout</button>
+    } @else if (userRole === 'admin') {
+      <span class="nav-welcome">Admin Dashboard</span>
+      <button type="button" class="logout-button" (click)="logout()">Logout</button>
+    }
+  </nav>
+</header>
+
+<!-- Login Pages -->
+@if (!isLoggedIn && loginPage === 'student') {
+  <main class="login-section">
+    <button type="button" class="back-button" (click)="showHome()">
+      ← Back to Home
+    </button>
+    <app-student-login></app-student-login>
+  </main>
+} @else if (!isLoggedIn && loginPage === 'admin') {
+  <main class="login-section">
+    <button type="button" class="back-button" (click)="showHome()">
+      ← Back to Home
+    </button>
+    <app-admin-login></app-admin-login>
+  </main>
+}
+
+<!-- Admin: Show ONLY the Admin Dashboard -->
+@else if (isLoggedIn && userRole === 'admin') {
+  <main class="admin-section">
+    <div class="section-heading">
+      <p class="eyebrow">ADMINISTRATION</p>
+      <h2>Admin Dashboard</h2>
+      <p>Manage college notices and announcements.</p>
+    </div>
+
+    <app-admin></app-admin>
+  </main>
+}
+
+<!-- Student: Show ONLY the Student Dashboard -->
+@else if (isLoggedIn && userRole === 'student') {
+  <main class="student-dashboard">
+    <section class="hero">
+      <p class="eyebrow">STUDENT PORTAL</p>
+      <h2>Welcome to Your Student Dashboard</h2>
+      <p class="hero-description">
+        View college notices, examination updates and campus events in one place.
+      </p>
+      <div class="hero-actions">
+        <button type="button" class="primary-button" (click)="showNotices()">
+          View Notices
+        </button>
+        <button type="button" class="secondary-button" (click)="showEvents()">
+          View Campus Events
+        </button>
+      </div>
+    </section>
+
+    @if (activeSection === 'home' || activeSection === 'notices') {
+      <section class="content-page">
+        <div class="section-heading">
+          <p class="eyebrow">STAY INFORMED</p>
+          <h2>College Notices</h2>
+          <p>Latest announcements for students.</p>
+        </div>
+
+        <div class="filters">
+          <input
+            type="search"
+            [(ngModel)]="searchText"
+            placeholder="Search notices..."
+            aria-label="Search notices">
+
+          <select [(ngModel)]="selectedCategory" aria-label="Filter notices">
+            <option value="">All Categories</option>
+            <option value="Exam">Exam</option>
+            <option value="Events">Events</option>
+            <option value="Holiday">Holiday</option>
+            <option value="Important">Important</option>
+            <option value="General">General</option>
+          </select>
+        </div>
+
+        @if (loading) {
+          <p>Loading notices...</p>
+        } @else if (errorMessage) {
+          <p class="error-message">{{ errorMessage }}</p>
+        } @else {
+          <div class="notice-grid">
+            @for (notice of filteredNotices; track notice.id) {
+              <article class="notice-card">
+                <span class="category-label">{{ notice.category }}</span>
+                <h3>{{ notice.title }}</h3>
+                <p>
+                  {{ notice.description || notice.details ||
+                  'No additional details available.' }}
+                </p>
+                @if (notice.date) {
+                  <small>Date: {{ notice.date }}</small>
+                }
+              </article>
+            }
+          </div>
+
+          @if (filteredNotices.length === 0) {
+            <p class="empty-state">No notices match your search.</p>
+          }
+        }
+      </section>
+    }
+
+    @if (activeSection === 'events') {
+      <section class="content-page">
+        <div class="section-heading">
+          <p class="eyebrow">CAMPUS ACTIVITIES</p>
+          <h2>Campus Events</h2>
+          <p>Explore college events and activities.</p>
+        </div>
+
+        <div class="notice-grid">
+          @for (notice of eventNotices; track notice.id) {
+            <article class="notice-card">
+              <span class="category-label">{{ notice.category }}</span>
+              <h3>{{ notice.title }}</h3>
+              <p>
+                {{ notice.description || notice.details ||
+                'More information will be announced soon.' }}
+              </p>
+              @if (notice.date) {
+                <small>Date: {{ notice.date }}</small>
+              }
+            </article>
+          }
+        </div>
+
+        @if (eventNotices.length === 0) {
+          <p class="empty-state">No campus events are available currently.</p>
+        }
+      </section>
+    }
+
+    <section class="content-page">
+      <button type="button" class="logout-button" (click)="logout()">
+        Logout
+      </button>
+    </section>
+  </main>
+}
+
+<!-- Public Homepage: Visible only when logged out -->
+@else {
+  <main>
+    @if (activeSection === 'home') {
+      <section class="home-page">
+        <div class="hero">
+          <p class="eyebrow">WELCOME TO YOUR CAMPUS</p>
+          <h2>Stay Updated.<br>Stay Connected.</h2>
+          <p class="hero-description">
+            Get the latest college announcements, examination updates,
+            events, holidays and more — all in one place.
+          </p>
+
+          <div class="hero-actions">
+            <button
+              type="button"
+              class="primary-button"
+              (click)="showNotices()">
+              Explore Notices
+            </button>
+            <button
+              type="button"
+              class="secondary-button"
+              (click)="showEvents()">
+              View Campus Events
+            </button>
+          </div>
+        </div>
+
+        <section class="information-section">
+          <p class="eyebrow">CAMPUS INFORMATION</p>
+          <h2>Everything in One Place</h2>
+
+          <div class="stats-grid">
+            <article class="stat-card">
+              <h3>{{ notices.length }}</h3>
+              <p>Total Notices</p>
+            </article>
+            <article class="stat-card">
+              <h3>{{ getImportantCount() }}</h3>
+              <p>Important Updates</p>
+            </article>
+            <article class="stat-card">
+              <h3>{{ getEventCount() }}</h3>
+              <p>Campus Events</p>
+            </article>
+          </div>
+        </section>
+
+        <section class="announcements-section">
+          <div class="section-heading">
+            <p class="eyebrow">COLLEGE UPDATES</p>
+            <h2>Latest Announcements</h2>
+            <p>Read the latest information from your college.</p>
+          </div>
+
+          @if (loading) {
+            <p>Loading announcements...</p>
+          } @else if (errorMessage) {
+            <p class="error-message">{{ errorMessage }}</p>
+          } @else {
+            <div class="notice-grid">
+              @for (notice of notices.slice(0, 3); track notice.id) {
+                <article class="notice-card">
+                  <span class="category-label">{{ notice.category }}</span>
+                  <h3>{{ notice.title }}</h3>
+                  <p>
+                    {{ notice.description || notice.details ||
+                    'Please check this announcement for more information.' }}
+                  </p>
+                  @if (notice.date) {
+                    <small>Date: {{ notice.date }}</small>
+                  }
+                </article>
+              }
+            </div>
+
+            @if (notices.length === 0) {
+              <p class="empty-state">No announcements are available yet.</p>
+            }
+          }
+
+          <button
+            type="button"
+            class="primary-button"
+            (click)="showNotices()">
+            View All Notices
+          </button>
+        </section>
+
+        <section class="quick-access">
+          <div class="section-heading">
+            <p class="eyebrow">QUICK ACCESS</p>
+            <h2>Explore Campus Updates</h2>
+          </div>
+
+          <div class="quick-grid">
+            <article class="quick-card">
+              <h3>All Notices</h3>
+              <p>Browse college announcements and updates.</p>
+              <button class="secondary-button" (click)="showNotices()">
+                Explore Notices
+              </button>
+            </article>
+            <article class="quick-card">
+              <h3>Campus Events</h3>
+              <p>Discover activities and upcoming events.</p>
+              <button class="secondary-button" (click)="showEvents()">
+                View Events
+              </button>
+            </article>
+            <article class="quick-card">
+              <h3>About Our Portal</h3>
+              <p>Learn about the College Notice Service.</p>
+              <button class="secondary-button" (click)="showAbout()">
+                Learn More
+              </button>
+            </article>
+          </div>
+        </section>
+      </section>
+    }
+
+    @if (activeSection === 'notices') {
+      <section class="content-page">
+        <div class="section-heading">
+          <p class="eyebrow">STAY INFORMED</p>
+          <h2>College Notices</h2>
+          <p>Search and browse the latest college announcements.</p>
+        </div>
+
+        <div class="filters">
+          <input
+            type="search"
+            [(ngModel)]="searchText"
+            placeholder="Search notices..."
+            aria-label="Search notices">
+
+          <select [(ngModel)]="selectedCategory" aria-label="Filter category">
+            <option value="">All Categories</option>
+            <option value="Exam">Exam</option>
+            <option value="Events">Events</option>
+            <option value="Holiday">Holiday</option>
+            <option value="Important">Important</option>
+            <option value="General">General</option>
+          </select>
+
+          <button type="button" class="secondary-button" (click)="searchText = ''; selectedCategory = ''">
+            Clear Filters
+          </button>
+        </div>
+
+        @if (loading) {
+          <p>Loading notices...</p>
+        } @else if (errorMessage) {
+          <p class="error-message">{{ errorMessage }}</p>
+        } @else {
+          <div class="notice-grid">
+            @for (notice of filteredNotices; track notice.id) {
+              <article class="notice-card">
+                <span class="category-label">{{ notice.category }}</span>
+                <h3>{{ notice.title }}</h3>
+                <p>{{ notice.description || notice.details || 'No additional details available.' }}</p>
+                @if (notice.date) {
+                  <small>Date: {{ notice.date }}</small>
+                }
+              </article>
+            }
+          </div>
+          @if (filteredNotices.length === 0) {
+            <p class="empty-state">No notices match your search.</p>
+          }
+        }
+      </section>
+    }
+
+    @if (activeSection === 'events') {
+      <section class="content-page">
+        <div class="section-heading">
+          <p class="eyebrow">CAMPUS ACTIVITIES</p>
+          <h2>Campus Events</h2>
+          <p>Explore events and activities announced by your college.</p>
+        </div>
+
+        <div class="notice-grid">
+          @for (notice of eventNotices; track notice.id) {
+            <article class="notice-card">
+              <span class="category-label">{{ notice.category }}</span>
+              <h3>{{ notice.title }}</h3>
+              <p>{{ notice.description || notice.details || 'More information will be announced soon.' }}</p>
+              @if (notice.date) {
+                <small>Date: {{ notice.date }}</small>
+              }
+            </article>
+          }
+        </div>
+
+        @if (eventNotices.length === 0) {
+          <p class="empty-state">No campus events are available at the moment.</p>
+        }
+      </section>
+    }
+
+    @if (activeSection === 'about') {
+      <section class="content-page">
+        <div class="section-heading">
+          <p class="eyebrow">ABOUT THE PROJECT</p>
+          <h2>About College Notice Service</h2>
+          <p>A convenient platform for sharing college announcements with students.</p>
+        </div>
+
+        <div class="about-card">
+          <h3>Our Purpose</h3>
+          <p>
+            College Notice Service brings academic information, examination
+            announcements, holidays and campus events together in one place.
+          </p>
+
+          <h3>Key Features</h3>
+          <ul>
+            <li>View the latest college notices.</li>
+            <li>Search notices and filter by category.</li>
+            <li>Explore campus event announcements.</li>
+            <li>Student and administrator login.</li>
+            <li>Administrator notice management.</li>
+          </ul>
+
+          <h3>Technology Used</h3>
+          <p>Angular, TypeScript, HTML, CSS, Node.js and Express.</p>
+        </div>
+      </section>
+    }
+  </main>
+}
+
+<footer class="site-footer">
+  <p><strong>College Notice Service</strong></p>
+  <p>Your campus updates, all in one place.</p>
+  <p>© 2026 College Notice Service. All rights reserved.</p>
+</footer>
